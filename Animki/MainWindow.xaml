@@ -1,0 +1,191 @@
+﻿<Window x:Class="Animki.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Animki"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
+    <Window.Background>
+        <ImageBrush ImageSource="phonetwo.jpg" x:Name="IB"/>
+    </Window.Background>
+    <Window.Resources>
+        <PathGeometry x:Key="PathAnimation">
+            <PathFigure StartPoint="100,100" IsClosed="False">
+                <LineSegment Point="500,100" />
+            </PathFigure>
+        </PathGeometry>
+
+        <PathGeometry x:Key="PathAnimationTwo">
+            <PathFigure StartPoint="0,100" IsClosed="False">
+                <LineSegment Point="400,100" />
+            </PathFigure>
+        </PathGeometry>
+
+        <PathGeometry x:Key="PathAnimationThree">
+            <PathFigure StartPoint="20,100" IsClosed="False">
+                <LineSegment Point="20,400" />
+            </PathFigure>
+        </PathGeometry>
+
+        <PathGeometry x:Key="PathAnimationFour">
+            <PathFigure StartPoint="100,100" IsClosed="True">
+                <LineSegment Point="500,100" />
+                <LineSegment Point="300,200" />
+            </PathFigure>
+        </PathGeometry>
+        <Style TargetType="Image" x:Key="Snows">
+            <Style.Setters>
+                <Setter Property="Source" Value="snow.png"></Setter>
+                <Setter Property="Height" Value="100"></Setter>
+                <Setter Property="Width" Value="100"></Setter>
+                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"></Setter>
+            </Style.Setters>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle" From="0" To="10" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Image" x:Key="SnowDrops">
+            <Style.Setters>
+                <Setter Property="Source" Value="snowdrop.png"></Setter>
+                <Setter Property="Height" Value="50"></Setter>
+                <Setter Property="Width" Value="50"></Setter>
+                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"></Setter>
+            </Style.Setters>
+        </Style>
+    </Window.Resources>
+    <Canvas>
+        <Path Stroke="Green" StrokeThickness="3" Data="{StaticResource ResourceKey=PathAnimation}" Opacity="0"/>
+        <Path Stroke="Red" StrokeThickness="3" Data="{StaticResource ResourceKey=PathAnimationTwo}" Opacity="0"/>
+        <Label Content="С 2023 годом!" FontFamily="Times" FontSize="50" FontWeight="ExtraBold" Canvas.Top="200" Canvas.Left="200" RenderTransformOrigin="0.5,0.5">
+            <Label.Foreground>
+                <LinearGradientBrush>
+                    <GradientStop Color="Blue" Offset="0" />
+                    <GradientStop Color="White" Offset="1" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+            <Label.RenderTransform>
+                <RotateTransform />
+            </Label.RenderTransform>
+            <Label.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[0].Color"
+                                            To="Red" Duration="0:0:3" AutoReverse="True" RepeatBehavior="Forever"></ColorAnimation>
+                            <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[1].Color"
+                                            To="Yellow" Duration="0:0:3" AutoReverse="True" RepeatBehavior="Forever"></ColorAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle" From="0" To="360" Duration="0:0:1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Label.Triggers>
+        </Label>
+        <Image Style="{StaticResource ResourceKey=Snows}" Canvas.Top="10" Canvas.Left="20">
+            <Image.RenderTransform>
+                <RotateTransform />
+            </Image.RenderTransform>
+        </Image>
+        <Image Style="{StaticResource ResourceKey=Snows}" Canvas.Top="10" Canvas.Right="20">
+            <Image.RenderTransform>
+                <RotateTransform />
+            </Image.RenderTransform>
+        </Image>
+
+        <Image Style="{StaticResource ResourceKey=SnowDrops}">
+            <Image.RenderTransform>
+                <RotateTransform />
+            </Image.RenderTransform>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingPath Storyboard.TargetProperty="(Canvas.Left)" Duration="0:0:3" PathGeometry="{StaticResource ResourceKey=PathAnimationThree}" 
+                                                      Source="X" RepeatBehavior="Forever"/>
+                            <DoubleAnimationUsingPath Storyboard.TargetProperty="(Canvas.Top)" Duration="0:0:3" PathGeometry="{StaticResource ResourceKey=PathAnimationThree}" 
+                                                      Source="Y" RepeatBehavior="Forever"/>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle" From="0" To="360" Duration="0:0:1" AutoReverse="False" RepeatBehavior="Forever"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+        <Image Style="{StaticResource ResourceKey=SnowDrops}">
+            <Image.RenderTransform>
+                <RotateTransform />
+            </Image.RenderTransform>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingPath Storyboard.TargetProperty="(Canvas.Right)" Duration="0:0:3" PathGeometry="{StaticResource ResourceKey=PathAnimationThree}" 
+                                                      Source="X" RepeatBehavior="Forever"/>
+                            <DoubleAnimationUsingPath Storyboard.TargetProperty="(Canvas.Top)" Duration="0:0:3" PathGeometry="{StaticResource ResourceKey=PathAnimationThree}" 
+                                                      Source="Y" RepeatBehavior="Forever"/>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle" From="0" To="360" Duration="0:0:1" AutoReverse="False" RepeatBehavior="Forever"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+        <Image Source="santa.png" Width="200" Height="150">
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingPath Storyboard.TargetProperty="(Canvas.Left)"
+Duration="0:0:3"
+PathGeometry="{StaticResource ResourceKey=PathAnimation}"
+Source="X" />
+                            <DoubleAnimationUsingPath Storyboard.TargetProperty="(Canvas.Top)"
+Duration="0:0:3"
+PathGeometry="{StaticResource ResourceKey=PathAnimation}"
+Source="Y" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+        <Image Source="gift.png" Width="100" Height="100">
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingPath Storyboard.TargetProperty="(Canvas.Left)" Duration="0:0:3" PathGeometry="{StaticResource ResourceKey=PathAnimationTwo}" 
+                                                      Source="X" />
+                            <DoubleAnimationUsingPath Storyboard.TargetProperty="(Canvas.Top)" Duration="0:0:3" PathGeometry="{StaticResource ResourceKey=PathAnimationTwo}" Source="Y" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+
+
+        <Button Content="Нажмите для продолжения чуда!" FontFamily="Times" FontSize="20" FontWeight="ExtraBold" Canvas.Top="300" Canvas.Left="200" RenderTransformOrigin="0.5,0.5" Background="Ivory" BorderThickness="0" Click="Button_Click">
+            <Button.Foreground>
+                <LinearGradientBrush>
+                    <GradientStop Color="LightPink" Offset="0" />
+                    <GradientStop Color="LightGreen" Offset="1" />
+                </LinearGradientBrush>
+            </Button.Foreground>
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[0].Color"
+                                            To="PaleVioletRed" Duration="0:0:3" AutoReverse="True" RepeatBehavior="Forever"></ColorAnimation>
+                            <ColorAnimation Storyboard.TargetProperty="Foreground.GradientStops[1].Color"
+                                            To="LightYellow" Duration="0:0:3" AutoReverse="True" RepeatBehavior="Forever"></ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+    </Canvas>
+</Window>
